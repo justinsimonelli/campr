@@ -12,12 +12,17 @@
         vm.user = null;
         vm.allUsers = [];
         vm.deleteUser = deleteUser;
+        vm.logout = logout;
+
+        function logout(){
+          LoginController.logout();
+        }
 
         initController();
 
         function initController() {
-            loadCurrentUser();
-            loadAllUsers();
+            //loadCurrentUser();
+            //loadAllUsers();
         }
 
         function loadCurrentUser() {

@@ -53,6 +53,11 @@ body {
 	box-shadow: none;
 	border-color: #ccc;
 }
+
+.container .btn{
+  margin-bottom: 25px;
+}
+
 .container .btn-login {
 	background-color: #59B2E0;
 	outline: none;

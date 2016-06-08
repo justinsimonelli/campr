@@ -5,60 +5,62 @@
         .module('app')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookies', '$rootScope', '$timeout', 'UserService'];
+    function AuthenticationService($http, $cookies, $rootScope, $timeout, UserService) {
         var service = {};
 
-        service.Login = Login;
-        service.SetCredentials = SetCredentials;
-        service.ClearCredentials = ClearCredentials;
+        service.login = login;
+        service.logout = logout;
+        service.saveLocalUID = saveLocalUID;
+        service.removeLocalUID = removeLocalUID
+        service.register = register
+        service.authenticated = authenticated;
 
         return service;
 
-        function Login(username, password, callback) {
-
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-             ----------------------------------------------*/
-            $timeout(function () {
-                var response;
-                UserService.GetByUsername(username)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response = { success: true };
-                        } else {
-                            response = { success: false, message: 'Username or password is incorrect' };
-                        }
-                        callback(response);
-                    });
-            }, 1000);
-
-            /* Use this for real authentication
-             ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
-
+        /**
+        ** Register a new user with Firebase using email,password
+        **/
+        function register(email, password) {
+          return firebase.auth().createUserWithEmailAndPassword(email, password)
+            .catch(function(error) {
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              console.log('unable to register user. errorCode = '+ errorCode +', errorMessage = ' + errorMessage);
+            });
         }
 
-        function SetCredentials(username, password) {
-            var authdata = Base64.encode(username + ':' + password);
-
-            $rootScope.globals = {
-                currentUser: {
-                    username: username,
-                    authdata: authdata
-                }
-            };
-
-            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
-            $cookieStore.put('globals', $rootScope.globals);
+        /**
+        ** Returns whether or not the user is authenticated
+        **/
+        function authenticated(){
+          return (localStorage.getItem('uid') ? true : false);
         }
 
-        function ClearCredentials() {
-            $rootScope.globals = {};
-            $cookieStore.remove('globals');
-            $http.defaults.headers.common.Authorization = 'Basic';
+        /**
+        **  Log the user in. DO ERROR HANDLING TOO!
+        **/
+        function login(username, password) {
+          return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            console.log('unable to login user. errorCode = '+errorCode+', errorMessage = ' + errorMessage)
+          });
+        }
+
+        /**
+        **  Log the user out.
+        **/
+        function logout() {
+          return firebase.auth().signOut();
+        }
+
+        function saveLocalUID(uid) {
+            localStorage.setItem('uid', uid);
+        }
+
+        function removeLocalUID() {
+            localStorage.removeItem('uid');
         }
     }
 

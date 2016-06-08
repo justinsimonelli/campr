@@ -5,9 +5,9 @@
         .module('app')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['UserService', '$location', '$rootScope', 'FlashService'];
+    RegisterController.$inject = ['AuthenticationService','UserService', '$state', '$rootScope', 'FlashService'];
 
-    function RegisterController(UserService, $location, $rootScope, FlashService) {
+    function RegisterController(AuthenticationService, UserService, $state, $rootScope, FlashService) {
         var vm = this;
 
         //tells which methods are public
@@ -17,34 +17,28 @@
             vm.dataLoading = true;
             console.debug('attempting to create user [' + vm.user.email + ']');
 
-            var userPromise = firebase.auth().createUserWithEmailAndPassword(vm.user.email, vm.user.password)
-            .catch(function(error) {
-              var errorCode = error.code;
-              var errorMessage = error.message;
-              console.log(errorMessage);
-            });
-
-            firebase.auth().onAuthStateChanged(function(user) {
+            AuthenticationService.register(vm.user.email, vm.user.password).then(function(user){
+              console.log('register completed');
               if (user) {
-                /*
                 console.log('user is logged in; writing their info');
                 writeUserData(user).then(function(){
                   console.log('successfully updated user info!');
                   FlashService.Success('Registration successful', true);
-                  $location.path('/login');
+                  AuthenticationService.saveLocalUID(user.uid);
+                  $state.go('home');
                 }).catch(function(e){
                   console.log(e)
                 });
-                */
-                console.log('user is authenticated');
-                $location.path('/login').replace();
               } else {
                 //console.log('user is logged not in');
               }
             });
         }
 
-        //returns a promise
+        /**
+        ** Write the user data to the users table; extended info about person
+        ** returns - promise object
+        **/
         function writeUserData(user) {
           var data = {
             uid:  user.uid,
