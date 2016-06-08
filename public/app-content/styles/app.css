@@ -14,7 +14,7 @@ body{
   and (max-device-width:600px)
   and (orientation: portrait){
     .form-group.buttons{
-      margin: 40% 0 0 0;
+      margin: 25% 0 0 0;
     }
 }
 /* iPhone 6S+ */
@@ -23,7 +23,7 @@ body{
   and (max-device-width: 736px)
   and (-webkit-min-device-pixel-ratio: 3) {
     .form-group.buttons{
-      margin: 55% 0 0 0;
+      margin: 50% 0 0 0;
     }
 }
 
