@@ -5,9 +5,9 @@
         .module('app')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['AuthenticationService','UserService', '$state', '$rootScope', 'FlashService'];
+    RegisterController.$inject = ['$state','AuthenticationService','UserService','$rootScope','FlashService'];
 
-    function RegisterController(AuthenticationService, UserService, $state, $rootScope, FlashService) {
+    function RegisterController($state, AuthenticationService, UserService, $rootScope, FlashService) {
         var vm = this;
 
         //tells which methods are public

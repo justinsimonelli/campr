@@ -40,7 +40,7 @@
         /**
         **  Log the user in. DO ERROR HANDLING TOO!
         **/
-        function login(username, password) {
+        function login(email, password) {
           return firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -63,6 +63,16 @@
             localStorage.removeItem('uid');
         }
     }
+
+    function logout() {
+        vm.dataLoading = true;
+        AuthenticationService.logout().then(function() {
+            AuthenticationService.removeLocalUID();
+            $state.go('login');
+          }, function(error) {
+            console.log('error logging out!')
+        });
+    };
 
     // Base64 encoding service used by AuthenticationService
     var Base64 = {

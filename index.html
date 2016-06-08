@@ -3,6 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <title>campr</title>
+    <link rel="mask-icon" href="app-content/images/tent.svg" color="#990000">
+    <link rel="shortcut icon" href="app-content/images/tent.svg">
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link href="app-content/styles/app.css" rel="stylesheet" />
@@ -14,7 +16,7 @@
           <div class="row">
             <div class="col-md-6 col-md-offset-3">
                 <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-                <div ui-view></div>
+                <div ui-view class="page {{ pageClass }}"></div>
             </div>
           </div>
         </div>
@@ -22,6 +24,7 @@
     <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-cookies.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-animate.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.1/angular-ui-router.min.js"></script>
     <script src="https:maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 

@@ -5,8 +5,8 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['UserService', '$rootScope'];
-    function HomeController(UserService, $rootScope) {
+    HomeController.$inject = ['AuthenticationService','UserService', '$state'];
+    function HomeController(AuthenticationService, UserService, $state) {
         var vm = this;
 
         vm.user = null;
@@ -15,7 +15,11 @@
         vm.logout = logout;
 
         function logout(){
-          LoginController.logout();
+          AuthenticationService.logout().then(function(){
+            AuthenticationService.removeLocalUID();
+            console.log('logged out');
+            $state.go('login');
+          });
         }
 
         initController();
