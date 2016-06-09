@@ -134,13 +134,13 @@ body{
 	margin-bottom: 25px;
 }
 
-#loader-shiv{
+.loader-shiv{
   width: 50px;
   height: 50px;
   margin: 0 auto;
 }
 
-#loader-shiv > img{
+.loader-shiv > img{
   width: 50px;
   height: : 50px;
 }

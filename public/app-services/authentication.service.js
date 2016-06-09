@@ -22,14 +22,14 @@
         /**
         ** Register a new user with Firebase using email,password
         **/
-        function register(email, password) {
-          var _promise = firebase.auth().createUserWithEmailAndPassword(email, password);
-          _promise.then(function(user){
-            if (user) {
-              $state.go('home');
-            } else {
-              //console.log('user is logged not in');
-            }
+        function register(userModel) {
+          var _promise = firebase.auth().createUserWithEmailAndPassword(userModel.email, userModel.password);
+          _promise.then(function(authenticatedFirebaseUser){
+            saveLocalUID(authenticatedFirebaseUser.uid);
+            authenticatedFirebaseUser.userModel = userModel
+            UserService.writeUserData(authenticatedFirebaseUser).then(function(){
+              console.log('successfully updated user info!');
+            });
           });
 
           return _promise;

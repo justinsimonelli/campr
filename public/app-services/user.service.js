@@ -5,12 +5,11 @@
         .module('app')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$http'];
+    //UserService.$inject = ['$http'];
     function UserService($http) {
         var service = {};
-
         service.snapshot = snapshot;
-        service.user = {};
+        service.writeUserData = writeUserData;
 
         return service;
 
@@ -26,22 +25,17 @@
         ** Write the user data to the users table; extended info about person
         ** returns - promise object
         **/
-        function writeUserData(user) {
+        function writeUserData(authenticatedFirebaseUser) {
           var data = {
-            uid:  user.uid,
-            email: vm.user.email,
-            username: vm.user.username,
-            firstname: vm.user.firstname,
-            lastname: vm.user.lastname
+            uid:  authenticatedFirebaseUser.uid,
+            email: authenticatedFirebaseUser.userModel.email,
+            username: authenticatedFirebaseUser.userModel.username,
+            firstname: authenticatedFirebaseUser.userModel.firstname,
+            lastname: authenticatedFirebaseUser.userModel.lastname
           };
 
-          console.log(data)
-          var _promise = firebase.database().ref('users/' + user.uid).update(data);
-          _promise.then(function(){
-              service.user = data;
-          });
-
-          return _promise;
+          console.log(data);
+          return firebase.database().ref('users/' + authenticatedFirebaseUser.uid).update(data);
         }
 
     }

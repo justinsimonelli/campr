@@ -21,9 +21,7 @@
             vm.dataLoading = true;
             AuthenticationService.login(vm.user.email, vm.user.password).then(function(user){
               vm.dataLoading = false;
-              UserService.snapshot(user.uid).then(function(snapshot){
-                $state.go('home');
-              });
+              $state.go('home');
             }).catch(function(error) {
               vm.dataLoading = false;
               FlashService.show(error.message, 'error', false);

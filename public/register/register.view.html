@@ -9,28 +9,31 @@
             </div>
             <div class="row">
               <h1>register with campr</h1>
+              <div class="loader-shiv">
+                <img ng-if="vm.dataLoading" src="app-content/images/ripple.svg" />
+              </div>
             </div>
           </div>
 
           <div class="panel-body">
             <form name="form" id="register-form" ng-submit="vm.register();" role="form">
               <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="vm.user.username" required>
+                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="vm.user.username" ng-required>
               </div>
               <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
-                <input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email Address" value="" ng-model="vm.user.email" required>
+                <input type="email" name="email" id="email" tabindex="2" class="form-control" placeholder="Email Address" value="" ng-model="vm.user.email" ng-required>
               </div>
               <div class="form-group" ng-class="{ 'has-error': form.firstname.$dirty && form.firstname.$error.required }">
-                <input type="text" name="firstname" id="firstname" tabindex="3" class="form-control" placeholder="First Name" value="" ng-model="vm.user.firstname" required>
+                <input type="text" name="firstname" id="firstname" tabindex="3" class="form-control" placeholder="First Name" value="" ng-model="vm.user.firstname" ng-required>
               </div>
               <div class="form-group" ng-class="{ 'has-error': form.lastname.$dirty && form.lastname.$error.required }">
-                <input type="text" name="lastname" id="lastname" tabindex="4" class="form-control" placeholder="Last Name" value="" ng-model="vm.user.lastname" required>
+                <input type="text" name="lastname" id="lastname" tabindex="4" class="form-control" placeholder="Last Name" value="" ng-model="vm.user.lastname" ng-required>
               </div>
               <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-                <input type="password" name="password" id="password" tabindex="5" class="form-control" placeholder="Password" ng-model="vm.user.password" required>
+                <input type="password" name="password" id="password" tabindex="5" class="form-control" placeholder="Password" ng-model="vm.user.password" ng-required>
               </div>
-              <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
-                <input type="password" name="confirm-password" id="confirm-password" tabindex="6" class="form-control" placeholder="Confirm Password">
+              <div class="form-group" ng-class="{ 'has-error': form.confirm-password.$dirty && form.confirm-password.$error.required }">
+                <input type="password" name="confirm-password" id="confirm-password" tabindex="6" class="form-control" placeholder="Confirm Password" ng-required confirm-password="password">
               </div>
               <div class="form-group">
                 <div class="row">
