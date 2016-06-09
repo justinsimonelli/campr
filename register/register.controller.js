@@ -5,9 +5,9 @@
         .module('app')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['$rootScope', '$state','AuthenticationService','UserService','FlashService'];
+    RegisterController.$inject = ['$state','AuthenticationService','UserService','$rootScope','FlashService'];
 
-    function RegisterController($rootScope, $state, AuthenticationService, UserService, FlashService) {
+    function RegisterController($state, AuthenticationService, UserService, $rootScope, FlashService) {
         var vm = this;
 
         //tells which methods are public
@@ -23,20 +23,34 @@
                 console.log('user is logged in; writing their info');
                 writeUserData(user).then(function(){
                   console.log('successfully updated user info!');
+                  FlashService.success('Registration successful', true);
                   AuthenticationService.saveLocalUID(user.uid);
-                  UserService.snapshot(user.uid).then(function(snapshot){
-                    UserService.user = snapshot;
-                    $state.go('home');
-                  });
+                  $state.go('home');
                 }).catch(function(e){
                   console.log(e)
                 });
               } else {
-                //console.log('user is logged not in');
+                FlashService.success('Uh oh. Something went wrong trying to register..', true);
               }
-            }).catch(function(error){
-              FlashService.show(error.message, 'error', false);
             });
+        }
+
+        /**
+        ** Write the user data to the users table; extended info about person
+        ** returns - promise object
+        **/
+        function writeUserData(user) {
+          var data = {
+            uid:  user.uid,
+            email: vm.user.email,
+            username: vm.user.username,
+            firstname: vm.user.firstname,
+            lastname: vm.user.lastname
+          };
+
+          console.log(data)
+
+          return firebase.database().ref('users/' + user.uid).update(data);
         }
     }
 

@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module('app', ['ui.router', 'ngCookies'])
+        .module('app', ['ui.router', 'ngCookies', 'ngResource'])
         .config(config)
         .run(run);
 
@@ -12,8 +12,15 @@
             .state('home', {
                 url: '/',
                 controller: 'HomeController',
-                templateUrl: 'home/home.view.html',
+                resolve: {
+                  userData: function(UserService, AuthenticationService){
+                    return UserService.snapshot(AuthenticationService.getLocalUID()).then(function(data){
+                      return data.val();
+                    });
+                  }
+                },
                 controllerAs: 'vm',
+                templateUrl: 'home/home.view.html',
                 authenticate: true
             })
 

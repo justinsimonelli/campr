@@ -1,32 +1,41 @@
-﻿<div class="panel panel-login">
-  <div class="panel-heading">
-    <div class="row">
-      <img id="campr-logo-login" src="app-content/images/tent.svg" alt="campr">
-    </div>
-    <div class="row">
-      <h1>campr</h1>
-    </div>
-  </div>
+<div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="$root.flash" ng-bind="$root.flash.message"></div>
+                <div class="page {{ pageClass }}">
+                  <div class="panel panel-login">
+                    <div class="panel-heading">
+                      <div class="row">
+                        <img id="campr-logo-login" src="app-content/images/tent.svg" alt="campr">
+                      </div>
+                      <div class="row">
+                        <h1>campr</h1>
+                        <div id="loader-shiv">
+                          <img ng-if="vm.dataLoading" src="app-content/images/ripple.svg" />
+                        </div>
+                      </div>
+                    </div>
 
-  <div class="panel-body">
-    <form name="form" ng-submit="vm.login()" role="form">
-        <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
-            <input type="email" name="username" id="username" class="form-control" ng-model="vm.user.email" placeholder="Email" required />
-            <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Username is required</span>
-        </div>
-        <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
-            <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" placeholder="Password" required />
-            <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
-        </div>
-        <div class="form-group buttons">
-          <div class="row">
-            <div class="col-sm-6 col-sm-offset-3">
-              <button type="submit" ng-disabled="vm.dataLoading" class="btn form-control btn-login">Login</button>
-              <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-              <a class="form-control btn btn-register" role="link" id="register-submit" href="#/register">Register</a>
+                    <div class="panel-body">
+                      <form name="form" ng-submit="vm.login()" role="form">
+                          <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required }">
+                              <input type="email" name="username" id="username" class="form-control" ng-model="vm.user.email" placeholder="Email" required />
+                              <span ng-show="form.email.$dirty && form.email.$error.required" class="help-block">Username is required</span>
+                          </div>
+                          <div class="form-group" ng-class="{ 'has-error': form.password.$dirty && form.password.$error.required }">
+                              <input type="password" name="password" id="password" class="form-control" ng-model="vm.user.password" placeholder="Password" required />
+                              <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
+                          </div>
+                          <div class="form-group buttons">
+                            <div class="row">
+                              <div class="col-sm-6 col-sm-offset-3">
+                                <button type="submit" ng-disabled="vm.dataLoading" class="btn form-control btn-login">Login</button>
+                                <a class="form-control btn btn-register" role="link" id="register-submit" href="#/register">Register</a>
+                              </div>
+                            </div>
+                          </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
             </div>
           </div>
-        </div>
-    </form>
-  </div>
-</div>

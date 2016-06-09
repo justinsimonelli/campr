@@ -8,9 +8,7 @@
     FlashService.$inject = ['$rootScope'];
     function FlashService($rootScope) {
         var service = {};
-
-        service.Success = Success;
-        service.Error = Error;
+        service.show = show;
 
         initService();
 
@@ -34,20 +32,14 @@
             }
         }
 
-        function Success(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'success', 
-                keepAfterLocationChange: keepAfterLocationChange
-            };
-        }
-
-        function Error(message, keepAfterLocationChange) {
-            $rootScope.flash = {
-                message: message,
-                type: 'error',
-                keepAfterLocationChange: keepAfterLocationChange
-            };
+        function show(message, type, keepAfterLocationChange) {
+            $rootScope.$apply(function(){
+              $rootScope.flash = {
+                  message: message,
+                  type: type,
+                  keepAfterLocationChange: keepAfterLocationChange
+              };
+            })
         }
     }
 
