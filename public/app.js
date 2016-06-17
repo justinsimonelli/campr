@@ -20,21 +20,21 @@
                   }
                 },
                 controllerAs: 'vm',
-                templateUrl: 'home/home.view.html',
+                templateUrl: 'views/home.view.html',
                 authenticate: true
             })
 
             .state('login', {
                 url: '/login',
                 controller: 'LoginController',
-                templateUrl: 'login/login.view.html',
+                templateUrl: 'views/login.view.html',
                 controllerAs: 'vm'
             })
 
             .state('register', {
                 url : '/register',
                 controller: 'RegisterController',
-                templateUrl: 'register/register.view.html',
+                templateUrl: 'views/register.view.html',
                 controllerAs: 'vm'
             })
 

@@ -5,8 +5,7 @@
         .module('app')
         .factory('UserService', UserService);
 
-    //UserService.$inject = ['$http'];
-    function UserService($http) {
+    function UserService() {
         var service = {};
         service.snapshot = snapshot;
         service.writeUserData = writeUserData;

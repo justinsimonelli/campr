@@ -10,4 +10,10 @@
           <h3 class="text-muted">Hey {{vm.user.username}}</h3>
 </div>
 <div class="jumbotron">
+  <div ng-if="!vm.trips">
+      <span>
+        <h2>Looks like you've got no trips coming up.</h2>
+        <a class="btn btn-success btn-lg" href="#" role="button">add a new one</a>
+      </span>
+  </div>
 </div>
